@@ -68,3 +68,4 @@ $ curl -H 'User: onprem' 192.168.33.223
 ...
 ```
 
+![hybrid-cloud.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybrid-cloud.png)
