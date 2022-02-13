@@ -17,7 +17,7 @@ $ kubectl apply -f onprem/employee-onprem-mongodb.yaml
 $ kubectl create configmap nginx-onprem-config --from-file=onprem/default.conf
 $ kubectl apply -f onprem/nginx-onprem.yaml
 ```
-![hybridcloud2.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud1.png)
+![hybridcloud2.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud2.png)
 
 ![hybridcloud4.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud4.png)
 
@@ -37,7 +37,7 @@ $ kubectl apply -f azure/employee-azure-cosmosdb.yaml
 $ kubectl create configmap nginx-onprem-config --from-file=onprem/default.conf
 $ kubectl apply -f azure/nginx-azure.yaml
 ```
-![hybridcloud3.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud1.png)
+![hybridcloud3.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud3.png)
 
 ![hybridcloud5.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud5.png)
 
