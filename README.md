@@ -34,7 +34,7 @@ $ rm -f connection-string.txt
 ```
 ```
 $ kubectl apply -f azure/employee-azure-cosmosdb.yaml
-$ kubectl create configmap nginx-onprem-config --from-file=onprem/default.conf
+$ kubectl create configmap nginx-onprem-config --from-file=azure/default.conf
 $ kubectl apply -f azure/nginx-azure.yaml
 ```
 ![hybridcloud3.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud3.png)
