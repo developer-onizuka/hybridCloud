@@ -45,36 +45,7 @@ $ istioctl install -y -f hybrid-cloud.yaml
 $ kubectl apply -f ingress-gateway.yaml
 ```
 
-# 2. Path to the On-premises DB
-
-```
-$ kubectl create configmap nginx-onprem-config --from-file=onprem/default.conf
-$ kubectl apply -f onprem/mongo-vm-svc.yaml,onprem/mongo-vm-wkle.yaml
-$ kubectl apply -f onprem/employee-onprem-mongodb.yaml
-$ kubectl apply -f onprem/nginx-onprem.yaml
-```
-![hybridcloud2.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud2.png)
-
-![hybridcloud4.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud4.png)
-
-
-# 3. Path to the Azure DB
-First of all, Create Azure Cosmos DB API for MongoDB and get connection string.
-> https://github.com/developer-onizuka/mvc_CosmosDB#1-create-azure-cosmos-db-api-for-mongodb
-
-```
-$ vi connection-string.txt 
-mongodb://myfirstcosmosdb:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==@myfirstcosmosdb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@myfirstcosmosdb@
-$ kubectl create secret generic connectionstring --from-file=secretenv=./connection-string.txt
-$ rm -f connection-string.txt
-```
-```
-$ kubectl create configmap nginx-onprem-config --from-file=azure/default.conf
-$ kubectl apply -f azure/employee-azure-cosmosdb.yaml
-$ kubectl apply -f azure/nginx-azure.yaml
-```
-
-# 4. Browser Access
+# 2. Browser Access
 
 Find the External-IP for istio-hybridcloud. In My case, it is "192.168.33.222".
 ```
@@ -89,6 +60,35 @@ kiali                  LoadBalancer   10.109.66.129    192.168.33.221   20001:32
 prometheus             ClusterIP      10.102.165.138   <none>           9090/TCP                                                                     5d2h
 tracing                ClusterIP      10.106.81.224    <none>           80/TCP,16685/TCP                                                             5d2h
 zipkin                 ClusterIP      10.104.42.193    <none>           9411/TCP                                                                     5d2h
+```
+
+# 3. Path to the On-premises DB
+
+```
+$ kubectl create configmap nginx-onprem-config --from-file=onprem/default.conf
+$ kubectl apply -f onprem/mongo-vm-svc.yaml,onprem/mongo-vm-wkle.yaml
+$ kubectl apply -f onprem/employee-onprem-mongodb.yaml
+$ kubectl apply -f onprem/nginx-onprem.yaml
+```
+![hybridcloud2.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud2.png)
+
+![hybridcloud4.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud4.png)
+
+
+# 4. Path to the Azure DB
+First of all, Create Azure Cosmos DB API for MongoDB and get connection string.
+> https://github.com/developer-onizuka/mvc_CosmosDB#1-create-azure-cosmos-db-api-for-mongodb
+
+```
+$ vi connection-string.txt 
+mongodb://myfirstcosmosdb:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==@myfirstcosmosdb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@myfirstcosmosdb@
+$ kubectl create secret generic connectionstring --from-file=secretenv=./connection-string.txt
+$ rm -f connection-string.txt
+```
+```
+$ kubectl create configmap nginx-onprem-config --from-file=azure/default.conf
+$ kubectl apply -f azure/employee-azure-cosmosdb.yaml
+$ kubectl apply -f azure/nginx-azure.yaml
 ```
 
 ![hybridcloud3.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud3.png)
