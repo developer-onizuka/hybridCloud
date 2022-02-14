@@ -45,7 +45,7 @@ $ istioctl install -y -f hybrid-cloud.yaml
 $ kubectl apply -f ingress-gateway.yaml
 ```
 
-# 2. Browser Access
+# 2. Find the IP address for Browser Access
 
 Find the External-IP for istio-hybridcloud. In My case, it is "192.168.33.222".
 ```
