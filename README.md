@@ -35,10 +35,13 @@
 192.168.33.32 mongo-2
 ```
 
-# 1. Git clone
+# 1. Git clone and Create IngressGateway
 ```
 $ git clone https://github.com/developer-onizuka/hybridCloud
 $ cd hybridCloud
+$ export PATH="$PATH:/home/vagrant/istio-1.12.2/bin"
+$ istioctl install -y -f hybrid-cloud.yaml
+$ kubectl apply -f ingress-gateway.yaml
 ```
 
 # 2. Path to the On-premises DB
@@ -77,51 +80,23 @@ $ kubectl apply -f azure/nginx-azure.yaml
 ![hybridcloud1.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud1.png)
 
 
-
-
-
-
-
-
-
-
-
-# X. Remainder
+# 5. L7 Aware Access
+Create Gateway.
 ```
-$ cat <<EOF | kubectl apply -f -
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: nginx-azure-vsvc
-spec:
-  hosts:
-  - "*"
-  gateways:
-  - employee-gateway
-  http:
-  - match:
-    #- uri:
-    #    prefix: "/"
-    - headers:
-       user:
-         exact: azure
-    #- name: v1
-    #  queryParams:
-    #    v:
-    #      exact: "1"
-    route:
-    - destination:
-        port:
-          number: 8080
-        host: nginx-azure-svc
-  - match:
-    - headers:
-       user:
-         exact: onprem
-    route:
-    - destination:
-        port:
-          number: 8080
-        host: nginx-svc
-EOF
+$ kubectl apply -f ingress-gateway-L7.yaml
 ```
+
+Create Configmap for Nginx.
+```
+$ kubectl create configmap nginx-onprem-config --from-file=onprem-L7/default.conf
+$ kubectl create configmap nginx-onprem-config --from-file=azure-L7/default.conf
+```
+
+Create each pod.
+```
+$ kubectl apply -f onprem-L7/.
+$ kubectl apply -f azure-L7/.
+```
+
+![hybridcloud6.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud6.png)
+![hybridcloud7.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud7.png)
