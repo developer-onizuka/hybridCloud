@@ -36,6 +36,7 @@
 ```
 
 # 1. Git clone and Create IngressGateway
+Create new IngressGateway so that you could attach new Ports such as 30001 or 30002 for the access from outside.
 ```
 $ git clone https://github.com/developer-onizuka/hybridCloud
 $ cd hybridCloud
@@ -72,16 +73,35 @@ $ kubectl create configmap nginx-onprem-config --from-file=azure/default.conf
 $ kubectl apply -f azure/employee-azure-cosmosdb.yaml
 $ kubectl apply -f azure/nginx-azure.yaml
 ```
+
+# 4. Browser Access
+
+Find the External-IP for istio-hybridcloud. In My case, it is "192.168.33.222".
+```
+kubectl get services -n istio-system 
+NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP      PORT(S)                                                                      AGE
+grafana                ClusterIP      10.96.20.62      <none>           3000/TCP                                                                     5d2h
+istio-hybridcloud      LoadBalancer   10.108.204.110   192.168.33.222   15021:30812/TCP,443:30262/TCP,80:32350/TCP,30001:30022/TCP,30002:32767/TCP   15h
+istio-ingressgateway   LoadBalancer   10.104.215.64    192.168.33.220   15021:31534/TCP,80:32400/TCP,443:30297/TCP                                   5d2h
+istiod                 ClusterIP      10.104.211.132   <none>           15010/TCP,15012/TCP,443/TCP,15014/TCP                                        5d2h
+jaeger-collector       ClusterIP      10.108.234.88    <none>           14268/TCP,14250/TCP,9411/TCP                                                 5d2h
+kiali                  LoadBalancer   10.109.66.129    192.168.33.221   20001:32457/TCP,9090:30661/TCP                                               5d2h
+prometheus             ClusterIP      10.102.165.138   <none>           9090/TCP                                                                     5d2h
+tracing                ClusterIP      10.106.81.224    <none>           80/TCP,16685/TCP                                                             5d2h
+zipkin                 ClusterIP      10.104.42.193    <none>           9411/TCP                                                                     5d2h
+```
+
 ![hybridcloud3.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud3.png)
 
 ![hybridcloud5.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud5.png)
 
-# 4. Kiali's Graph View
+# 5. Kiali's Graph View
 ![hybridcloud1.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud1.png)
 
 
-# 5. L7 Aware Access
-Create Gateway.
+# 6. L7 Aware Access
+Create Gateway. This Gateway is on "istio-ingressgateway" which is Istio default gateway implementation and it's External-IP is "192.168.33.220".<br>
+This case you don't need to create new ports and you can use the host of HTTP Header to manage L7 access.
 ```
 $ kubectl apply -f ingress-gateway-L7.yaml
 ```
@@ -96,6 +116,14 @@ Create each pod.
 ```
 $ kubectl apply -f onprem-L7/.
 $ kubectl apply -f azure-L7/.
+```
+
+# 7. Browser Access
+Before Access, You should resolve the 192.168.33.220 to the hostname.
+```
+$ vi /etc/hosts
+192.168.33.220 onprem.example.com
+192.168.33.220 azure.example.com
 ```
 
 ![hybridcloud6.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud6.png)
