@@ -35,7 +35,7 @@
 192.168.33.32 mongo-2
 ```
 
-# 1. Git clone and Create IngressGateway
+# 1. L4 Access
 Create new IngressGateway so that you could attach new Ports such as 30001 or 30002 for the access from outside.
 ```
 $ git clone https://github.com/developer-onizuka/hybridCloud
