@@ -100,7 +100,7 @@ zipkin                 ClusterIP      10.104.42.193    <none>           9411/TCP
 
 
 # 6. L7 Aware Access
-- Create Gateway.
+- Create Gateway.<br>
 This Gateway is on "istio-ingressgateway" which is Istio default gateway implementation and it's External-IP is "192.168.33.220".<br>
 In this case, I'm not gonna create new ports on IngressGateway and I can use the host of HTTP Header to manage and separate L7 access for onprem and Azure.
 ```
