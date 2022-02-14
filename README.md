@@ -41,7 +41,7 @@ $ git clone https://github.com/developer-onizuka/hybridCloud
 $ cd hybridCloud
 ```
 
-# 2. Using On-premises DB
+# 2. Path to the On-premises DB
 
 ```
 $ kubectl create configmap nginx-onprem-config --from-file=onprem/default.conf
@@ -54,7 +54,7 @@ $ kubectl apply -f onprem/nginx-onprem.yaml
 ![hybridcloud4.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud4.png)
 
 
-# 3. Using Azure DB
+# 3. Path to the Azure DB
 First of all, Create Azure Cosmos DB API for MongoDB and get connection string.
 > https://github.com/developer-onizuka/mvc_CosmosDB#1-create-azure-cosmos-db-api-for-mongodb
 
