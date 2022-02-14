@@ -100,19 +100,20 @@ zipkin                 ClusterIP      10.104.42.193    <none>           9411/TCP
 
 
 # 6. L7 Aware Access
-Create Gateway. This Gateway is on "istio-ingressgateway" which is Istio default gateway implementation and it's External-IP is "192.168.33.220".<br>
-This case you don't need to create new ports and you can use the host of HTTP Header to manage L7 access.
+- Create Gateway.
+This Gateway is on "istio-ingressgateway" which is Istio default gateway implementation and it's External-IP is "192.168.33.220".<br>
+In this case, I'm not gonna create new ports on IngressGateway and I can use the host of HTTP Header to manage and separate L7 access for onprem and Azure.
 ```
 $ kubectl apply -f ingress-gateway-L7.yaml
 ```
 
-Create Configmap for Nginx.
+- Create Configmap for Nginx.
 ```
 $ kubectl create configmap nginx-onprem-config --from-file=onprem-L7/default.conf
 $ kubectl create configmap nginx-onprem-config --from-file=azure-L7/default.conf
 ```
 
-Create each pod.
+- Create each pod.
 ```
 $ kubectl apply -f onprem-L7/.
 $ kubectl apply -f azure-L7/.
