@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-onprem-svc
+  labels:
+    app: employee-onprem-svc
+spec:
+#  type: NodePort
+  ports:
+  - port: 5001
+    targetPort: 5001
+    protocol: TCP
+    name: https
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+    name: http
+  selector:
+    app: employee-onprem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-onprem
+spec:
+  selector:
+    matchLabels:
+      app: employee-onprem
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: employee-onprem
+    spec:
+      containers:
+      - name: employee
+        #image: developeronizuka/employee:latest
+        image: developeronizuka/employee2:latest
+        ports:
+        - containerPort: 5001
+        - containerPort: 5000
+        env:
+        - name: MONGO
+          value: 'mongo-0:27017,mongo-1:27017,mongo-2:27017/?replicaSet=myReplicaSet'
+        - name: REDIS
+          value: 'redis-master:6379'
+        - name: REDIS_TTL
+          value: '10'
+        - name: REDIS_PASSWD
+          valueFrom:
+            secretKeyRef:
+              name: redis
+              key: redis-password
