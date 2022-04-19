@@ -36,6 +36,8 @@ spec:
       - name: employee
         #image: developeronizuka/employee:latest
         image: developeronizuka/employee2:latest
+        #image: developeronizuka/employee2:beta
+        #imagePullPolicy: Always
         ports:
         - containerPort: 5001
         - containerPort: 5000
@@ -45,7 +47,9 @@ spec:
         - name: REDIS
           value: 'redis-master:6379'
         - name: REDIS_TTL
-          value: '10'
+          value: '3600'
+        - name: REDIS_CACHELINE
+          value: '1000'
         - name: REDIS_PASSWD
           valueFrom:
             secretKeyRef:
