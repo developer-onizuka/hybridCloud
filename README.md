@@ -110,7 +110,7 @@ $ kubectl apply -f ingress-gateway-L7.yaml
 - Create Configmap for Nginx.
 ```
 $ kubectl create configmap nginx-onprem-config --from-file=onprem-L7/default.conf
-$ kubectl create configmap nginx-onprem-config --from-file=azure-L7/default.conf
+$ kubectl create configmap nginx-azure-config --from-file=azure-L7/default.conf
 ```
 
 - Create each pod.
