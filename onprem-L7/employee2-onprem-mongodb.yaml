@@ -33,10 +33,10 @@ spec:
     spec:
       containers:
       - name: employee
-        #image: developeronizuka/employee:latest
-        #image: developeronizuka/employee2:2.0.3
-        image: developeronizuka/employee2:beta
-        imagePullPolicy: Always
+        image: developeronizuka/employee2:latest
+        #image: developeronizuka/employee2:2.0.5
+        #image: developeronizuka/employee2:beta
+        #imagePullPolicy: Always
         ports:
         - containerPort: 5001
         - containerPort: 5000
