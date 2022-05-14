@@ -33,16 +33,20 @@ spec:
     spec:
       containers:
       - name: employee
-        image: developeronizuka/employee2:latest
+        #image: developeronizuka/employee2:latest
         #image: developeronizuka/employee2:2.0.5
-        #image: developeronizuka/employee2:beta
-        #imagePullPolicy: Always
+        image: developeronizuka/employee2:beta
+        imagePullPolicy: Always
         ports:
         - containerPort: 5001
         - containerPort: 5000
         env:
         - name: MONGO
           value: 'mongo-0:27017,mongo-1:27017,mongo-2:27017/?replicaSet=myReplicaSet'
+        - name: RABBITMQ_IPADDR
+          value: 'rabbitmq'
+        - name: RABBITMQ_DLX
+          value: 'dlx.employee-queue-tmp'
         - name: REDIS
           value: 'redis-master:6379'
         - name: REDIS_TTL
