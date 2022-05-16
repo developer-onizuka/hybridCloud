@@ -130,7 +130,7 @@ $ vi /etc/hosts
 ![hybridcloud6.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud6.png)
 ![hybridcloud7.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud7.png)
 
-# 8. HTTPS
+# 8. HTTPS Access
 See also the URL below:
 > https://github.com/developer-onizuka/Istio_ingressGateway#6-https-access
 ```
