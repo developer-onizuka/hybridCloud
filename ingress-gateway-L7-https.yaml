@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: employee-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 443
+      name: employee-gateway
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: onprem-credential
+    hosts:
+    - "*"
