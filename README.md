@@ -129,3 +129,15 @@ $ vi /etc/hosts
 
 ![hybridcloud6.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud6.png)
 ![hybridcloud7.png](https://github.com/developer-onizuka/hybridCloud/blob/main/hybridcloud7.png)
+
+# 8. HTTPS
+See also the URL below:
+> https://github.com/developer-onizuka/Istio_ingressGateway#6-https-access
+```
+openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/O=example Inc./CN=example.com' -keyout example.com.key -out example.com.crt
+openssl req -out onprem.example.com.csr -newkey rsa:2048 -nodes -keyout onprem.example.com.key -subj "/CN=onprem.example.com/O=onprem organization"
+openssl x509 -req -sha256 -days 365 -CA example.com.crt -CAkey example.com.key -set_serial 0 -in onprem.example.com.csr -out onprem.example.com.crt
+kubectl create -n istio-system secret tls onprem-credential --key=onprem.example.com.key --cert=onprem.example.com.crt
+kubectl get secret -n istio-system 
+kubectl apply -f ingress-gateway-L7-https.yaml 
+```
