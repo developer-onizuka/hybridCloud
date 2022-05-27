@@ -52,7 +52,7 @@ spec:
         - name: REDIS_TTL
           value: '3600'
         - name: REDIS_CACHELINE
-          value: '1000'
+          value: '100'
         - name: REDIS_PASSWD
           valueFrom:
             secretKeyRef:
